@@ -155,6 +155,55 @@ class LogicalTest extends ArnoldGeneratorTest {
         "YOU HAVE BEEN TERMINATED\n"
     getOutput(code) should equal("0\n")
   }
+  
+  it should "False NotEquals False evaluates False" in {
+    val code =
+      "IT'S SHOWTIME\n" +
+        "HEY CHRISTMAS TREE varfalse\n" +
+        "YOU SET US UP @I LIED\n" +
+        "HEY CHRISTMAS TREE varfalse2\n" +
+        "YOU SET US UP @I LIED\n" +
+        "GET TO THE CHOPPER varfalse\n" +
+        "HERE IS MY INVITATION @I LIED\n" +
+        "IT'S NOT A TOOMAH varfalse2\n" +
+        "ENOUGH TALK\n" +
+        "TALK TO THE HAND varfalse\n" +
+        "YOU HAVE BEEN TERMINATED\n"
+    getOutput(code) should equal("0\n")
+  }
+  it should "True NotEquals False evaluates True" in {
+    val code =
+      "IT'S SHOWTIME\n" +
+        "HEY CHRISTMAS TREE varfalse\n" +
+        "YOU SET US UP @I LIED\n" +
+        "HEY CHRISTMAS TREE result\n" +
+        "YOU SET US UP @I LIED\n" +
+        "GET TO THE CHOPPER result\n" +
+        "HERE IS MY INVITATION @NO PROBLEMO\n" +
+        "IT'S NOT A TOOMAH varfalse\n" +
+        "ENOUGH TALK\n" +
+        "TALK TO THE HAND result\n" +
+        "YOU HAVE BEEN TERMINATED\n"
+    getOutput(code) should equal("1\n")
+  }
+
+  it should "1 NotEquals 2 evaluates False" in {
+    val code =
+      "IT'S SHOWTIME\n" +
+        "HEY CHRISTMAS TREE one\n" +
+        "YOU SET US UP 1\n" +
+        "HEY CHRISTMAS TREE two\n" +
+        "YOU SET US UP 2\n" +
+        "HEY CHRISTMAS TREE result\n" +
+        "YOU SET US UP @NO PROBLEMO\n" +
+        "GET TO THE CHOPPER result\n" +
+        "HERE IS MY INVITATION one\n" +
+        "IT'S NOT A TOOMAH two\n" +
+        "ENOUGH TALK\n" +
+        "TALK TO THE HAND result\n" +
+        "YOU HAVE BEEN TERMINATED\n"
+    getOutput(code) should equal("1\n")
+  }
 
   it should "2 is greater than 1 evaluates True" in {
     val code =

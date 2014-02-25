@@ -24,6 +24,7 @@ class ArnoldParser extends Parser {
   val False = "I LIED"
   val True = "NO PROBLEMO"
   val EqualTo = "YOU ARE NOT YOU YOU ARE ME"
+  val NotEqualTo = "IT'S NOT A TOOMAH"
   val GreaterThan = "LET OFF SOME STEAM BENNET"
   val Or = "CONSIDER THAT A DIVORCE"
   val And = "KNOCK KNOCK"
@@ -114,18 +115,24 @@ class ArnoldParser extends Parser {
     Or ~ WhiteSpace ~ Operand ~ EOL ~~> OrNode |
       And ~ WhiteSpace ~ Operand ~ EOL ~~> AndNode |
       EqualTo ~ WhiteSpace ~ Operand ~ EOL ~~> EqualToNode |
+      NotEqualTo ~ WhiteSpace ~ Operand ~ EOL ~~> NotEqualToNode |
       GreaterThan ~ WhiteSpace ~ Operand ~ EOL ~~> GreaterThanNode
 
   }
 
   def RelationalExpression: ReductionRule1[AstNode, AstNode] = {
     EqualToExpression ~~> EqualToNode |
+      NotEqualToExpression ~~> NotEqualToNode |
       GreaterThanExpression ~~> GreaterThanNode
   }
 
 
   def EqualToExpression: Rule1[OperandNode] = {
     EqualTo ~ WhiteSpace ~ Operand ~ EOL
+  }
+
+  def NotEqualToExpression: Rule1[OperandNode] = {
+    NotEqualTo ~ WhiteSpace ~ Operand ~ EOL
   }
 
   def GreaterThanExpression: Rule1[OperandNode] = {
